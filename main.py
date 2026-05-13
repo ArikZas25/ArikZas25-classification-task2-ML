@@ -11,30 +11,31 @@ from typing import List
 
 def classify_with_NNR(data_trn: str, data_vld: str, df_tst: DataFrame) -> List:
     
-    # seperate the traning csv to featuers and labels
+    # separate the training csv to features and labels
     df_trn = pd.read_csv(data_trn)
-    X_trn = df_trn.iloc[:, :-1].values # added .values to get numpy array insted of pandas array
-    y_trn = df_trn.iloc[:, -1].values  # added .values to get numpy array insted of pandas array
+    X_trn = df_trn.iloc[:, :-1].values # added .values to get numpy array instead of pandas array
+    y_trn = df_trn.iloc[:, -1].values  # added .values to get numpy array instead of pandas array
 
-    # seperate the Validation csv to featuers and labels
+    # separate the Validation csv to features and labels
     df_vld = pd.read_csv(data_vld)
-    X_vld = df_vld.iloc[:, :-1].values # added .values to get numpy array insted of pandas array
-    y_vld = df_vld.iloc[:, -1].values  # added .values to get numpy array insted of pandas array
+    X_vld = df_vld.iloc[:, :-1].values # added .values to get numpy array instead of pandas array
+    y_vld = df_vld.iloc[:, -1].values  # added .values to get numpy array instead of pandas array
 
-    # seperate the Test csv to featuers and labels
-    X_tst = df_tst.iloc[:, :-1].values # added .values to get numpy array insted of pandas array
+    # separate the Test csv to features and labels
+    X_tst = df_tst.iloc[:, :-1].values # added .values to get numpy array instead of pandas array
 
-    # Scaling the featuers
+    # Scaling the features
     scaler = StandardScaler()
-    X_trn = scaler.fit_transform(X_trn) # its already a numpy array with only featuers
+    X_trn = scaler.fit_transform(X_trn) # its already a numpy array with only features
     X_vld = scaler.transform(X_vld)
     X_tst = scaler.transform(X_tst)
 
-
+    # using Euclidean Distance
+    distances = np.linalg.norm(X_vld[0] - X_trn, axis=1)
 
 
     # todo: implement this function
-    #  the data_tst dataframe should only be used for the final predictions your return
+    # the data_tst dataframe should only be used for the final predictions your return
     
     print(f'starting classification with {data_trn}, {data_vld}, predicting on {len(df_tst)} instances')
 
